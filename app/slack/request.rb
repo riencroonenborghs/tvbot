@@ -49,7 +49,7 @@ module Slack
       begin
         api     = TMDb::API::Search.new @options.join(" ")
         results = api.search
-        return Slack::Response::ToYouOnly.text "Nothing found for #{@options.join(" ")}" if @options.size == 0
+        return Slack::Response::ToYouOnly.text "Nothing found for #{@options.join(" ")}" if results.size == 0
         Slack::Response::ToYouOnly.attachments { results }
       rescue => e
         Slack::Response::ToYouOnly.error e
