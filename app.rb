@@ -17,4 +17,3 @@ post "/" do
   json slack_request.process
 end
 
-/
