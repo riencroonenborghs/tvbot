@@ -50,7 +50,7 @@ module Slack
         results = api.search
         Slack::Response::ToYouOnly.attachments { results }
       rescue => e
-        Slack::Response::ToYouOnly.text e
+        Slack::Response::ToYouOnly.error e
       end
     end
 

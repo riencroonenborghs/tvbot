@@ -19,6 +19,11 @@ module Slack
           attachments: yield 
         }
       end
+      def self.error message
+        {attachments: [
+          {text: message, color: "#ff0000", pretext: "An error occurred"}
+        ]}
+      end
     end
 
     class Direct

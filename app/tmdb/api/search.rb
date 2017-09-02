@@ -17,9 +17,13 @@ module TMDb
           hash = {
             fallback: result["name"],
             color: "#36a64f",
-            text: result["name"]
+            title: result["name"],
+            text: result["overview"],
+            fields: [
+              {title: "Rating", value: result["vote_average"]}
+            ]
           }
-          hash.update(image_url: "#{IMAGE_PATH}/#{result["poster_path"]}") if result["poster_path"]
+          hash.update(thumb_url: "#{IMAGE_PATH}/#{result["poster_path"]}") if result["poster_path"]
           hash
         end
       end
