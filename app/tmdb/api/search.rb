@@ -13,7 +13,7 @@ module TMDb
     private
 
       def process_body body
-        body.results.map do |result|
+        body["results"].map do |result|
           "#{result["name"]} (#{result['vote_average']}*)"
         end
       end
