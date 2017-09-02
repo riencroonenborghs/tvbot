@@ -38,18 +38,21 @@ module Slack
       help << "`/tv search tv program` finds out things about *tv program*"
       help << "`/tv follow tv program` starts following *tv program* and notifies you when a new episode has aired"
       help << "`/tv unfollow tv program` unfollows *tv program*"
-      Slack::Response::ToYouOnly.text help.join("\n")
+
+      Slack::Response::ToYouOnly.attachments do
+        [{text: help.join("\n"), color: "#0090BC"}]
+      end
     end
 
     def search?
       @command == SEARCH
     end
     def process_search
-      return Slack::Response::ToYouOnly.text "Nothing to search for" unless @options.any?
+      return Slack::Response::ToYouOnly.text "Nothing to search for. Try something like `/tv search game of thrones`." unless @options.any?
       begin
         api     = TMDb::API::Search.new @options.join(" ")
         results = api.search
-        return Slack::Response::ToYouOnly.text "Nothing found for #{@options.join(" ")}" if results.size == 0
+        return Slack::Response::ToYouOnly.text "Nothing found for `#{@options.join(" ")}`." if results.size == 0
         Slack::Response::ToYouOnly.attachments { results }
       rescue => e
         Slack::Response::ToYouOnly.error e
