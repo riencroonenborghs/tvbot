@@ -6,7 +6,7 @@ module TMDb
       end
 
       def search
-        response = get "#{API_URL}/search/tv?api_key=#{ENV['THEMOVIEDB_API_TOKEN']}&query=#{query}"
+        response = get "#{API_URL}/search/tv?api_key=#{ENV['THEMOVIEDB_API_TOKEN']}&query=#{@query}"
         process response
       end
 
