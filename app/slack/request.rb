@@ -15,11 +15,11 @@ module Slack
     # /tv follow ...
     # /tv unfollow ...
     def process
-      if self.help?
+      if help?
         process_help
-      elsif self.search?
-      elsif self.follow?
-      elsif self.unfollow?
+      elsif search?
+      elsif follow?
+      elsif unfollow?
       else
         process_help
       end
