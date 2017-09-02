@@ -45,9 +45,11 @@ module Slack
       @command == SEARCH
     end
     def process_search
+      return Slack::Response::ToYouOnly.text "Nothing to search for" unless @options.any?
       begin
         api     = TMDb::API::Search.new @options.join(" ")
         results = api.search
+        return Slack::Response::ToYouOnly.text "Nothing found for #{@options.join(" ")}"
         Slack::Response::ToYouOnly.attachments { results }
       rescue => e
         Slack::Response::ToYouOnly.error e
