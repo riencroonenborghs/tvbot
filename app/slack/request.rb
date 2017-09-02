@@ -7,7 +7,9 @@ module Slack
 
     def initialize params
       @user = Slack::User.new params[:user_id], params[:user_name]
-      @command, @options = params[:text].split(" ")
+      parsed_text = params[:text].split(" ")
+      @command    = parsed_text.shift
+      @options    = parsed_text
     end
 
     # /tv help
