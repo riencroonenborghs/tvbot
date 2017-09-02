@@ -46,9 +46,9 @@ module Slack
     end
     def process_search
       begin
-        api   = TMDb::API::Search.new @options.join(" ")
-        list  = api.search
-        Slack::Response::ToYouOnly.text list.join("\n")
+        api     = TMDb::API::Search.new @options.join(" ")
+        results = api.search
+        Slack::Response::ToYouOnly.attachments { results }
       rescue => e
         Slack::Response::ToYouOnly.text e
       end

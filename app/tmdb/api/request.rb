@@ -2,6 +2,7 @@ module TMDb
   module API
     class Request
       API_URL     = "http://api.themoviedb.org/3"
+      IMAGE_PATH  = "https://image.tmdb.org/t/p/w185"
       HEADERS     = {"Accept" => "application/json"}
       OK_RESPONSE = 200
       

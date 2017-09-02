@@ -14,6 +14,11 @@ module Slack
       def self.text text
         {text: text}
       end
+      def self.attachments& block
+        ret = {
+          attachments: yield 
+        }
+      end
     end
 
     class Direct

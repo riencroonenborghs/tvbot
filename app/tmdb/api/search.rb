@@ -14,7 +14,13 @@ module TMDb
 
       def process_body body
         body["results"].map do |result|
-          "#{result["name"]} (#{result['vote_average']}*)"
+          hash = {
+            fallback: result["name"],
+            color: "#36a64f",
+            text: result["name"]
+          }
+          hash.update(image_url: "#{IMAGE_PATH}/#{result["poster_path"]}") if result["poster_path"]
+          hash
         end
       end
     end
