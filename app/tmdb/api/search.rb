@@ -16,9 +16,9 @@ module TMDb
         body["results"].map do |result|
           hash = {
             fallback: result["name"],
-            color: "#36a64f",
-            title: result["name"],
-            text: result["overview"],
+            color:    "#36a64f",
+            title:    result["name"],
+            text:     result["overview"],
             fields: [
               {title: "Rating", value: result["vote_average"]}
             ]

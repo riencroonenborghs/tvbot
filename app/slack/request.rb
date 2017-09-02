@@ -38,10 +38,7 @@ module Slack
       help << "`/tv search tv program` finds out things about *tv program*"
       help << "`/tv follow tv program` starts following *tv program* and notifies you when a new episode has aired"
       help << "`/tv unfollow tv program` unfollows *tv program*"
-
-      Slack::Response::ToYouOnly.attachments do
-        [{text: help.join("\n"), color: "#0090BC"}]
-      end
+      Slack::Response::ToYouOnly.text help.join("\n")
     end
 
     def search?
