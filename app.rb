@@ -3,6 +3,7 @@ require "sinatra/json"
 require "unirest"
 
 require_relative "app/slack/request"
+require_relative "app/slack/user"
 require_relative "app/slack/response"
 require_relative "app/slack/authorizer"
 
