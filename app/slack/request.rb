@@ -18,6 +18,7 @@ module Slack
       if help?
         process_help
       elsif search?
+        process_search
       elsif follow?
       elsif unfollow?
       else
@@ -32,14 +33,18 @@ module Slack
     end
     def process_help
       help = ["`/tv help` helps you along the way"]
-      help << "`/tv search your tv program` finds out things about *your tv program*"
-      help << "`/tv follow your tv program` starts following *your tv program* and notifies you when a new episode has been aired."
-      help << "`/tv unfollow your tv program` unfolloes *your tv program*"
+      help << "`/tv search tv program` finds out things about *tv program*"
+      help << "`/tv follow tv program` starts following *tv program* and notifies you when a new episode has aired"
+      help << "`/tv unfollow tv program` unfollows *tv program*"
       Slack::Response::ToYouOnly.text help.join("\n")
     end
 
     def search?
       @command == SEARCH
+    end
+    def process_search
+      list = TMDb::API::Search.new @options.join(" ")
+      Slack::Response::ToYouOnly.text list.join("\n")
     end
 
     def follow?

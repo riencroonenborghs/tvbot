@@ -12,13 +12,13 @@ It's written in Ruby/Sinatra.
 # How to
 
 `/tv help`
-helps you along the way
+Helps you along the way.
 
-`/tv search your tv program` 
-Finds out things about `your tv program`
+`/tv search tv program` 
+Finds out things about *tv program*.
 
-`/tv follow your tv program`
-Starts following `your tv program` and notifies you when a new episode has been aired.
+`/tv follow tv program`
+Starts following *tv program* and notifies you when a new episode has been aired.
 
-`/tv unfollow your tv program`
-Unfolloes `your tv program`
+`/tv unfollow tv program`
+Unfolloes *tv program*.
