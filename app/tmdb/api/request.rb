@@ -12,14 +12,10 @@ module TMDb
     private
 
       def process response
-        begin
-          if response.code == OK_RESPONSE
-            process_body response.body
-          else
-            ::Slack::Response::ToYouOnly.text "Error contacting TMDb"
-          end
-        rescue
-          ::Slack::Response::ToYouOnly.text "Error contacting TMDb"
+        if response.code == OK_RESPONSE
+          process_body response.body
+        else
+          raise "Error contacting TMDb"
         end
       end
 
