@@ -9,6 +9,8 @@ module TMDb
         ::Unirest.get url, headers: HEADERS
       end
 
+    private
+
       def process response
         begin
           if response.code == OK_RESPONSE
@@ -19,6 +21,10 @@ module TMDb
         rescue
           ::Slack::Response::ToYouOnly.text "Error contacting TMDb"
         end
+      end
+
+      def process_body
+        raise "implement me"
       end
     end
   end
