@@ -32,8 +32,7 @@ module Slack
     end
 
     def self.post url, data
-      # ::Unirest.post url, headers: {"Accept" => "application/json"}, data
-      ::Unirest.post url, data
+      ::Unirest.post url, headers: {"Accept" => "application/json"}, parameters: data
     end
   end
 end
