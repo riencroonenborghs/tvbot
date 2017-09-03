@@ -9,6 +9,9 @@ module Slack
     
     def call(env)
       req = Rack::Request.new(env)
+      puts "----------------"
+      puts req.params
+      puts "----------------"
       if req.params["token"] == ENV["SLACK_TOKEN"]
         @app.call(env)
       else
