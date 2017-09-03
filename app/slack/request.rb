@@ -1,5 +1,7 @@
 module Slack
   class Request
+    attr_accessor :response_url
+    
     HELP      = "help"
     SEARCH    = "search"
     FOLLOW    = "follow"
@@ -8,12 +10,14 @@ module Slack
     def initialize params
       @user = Slack::User.new params[:user_id], params[:user_name]
       # actions for (un)following tv programs
-      payload   = JSON.parse params[:payload] || "{}"
-      @actions  = payload["actions"] || []
+      @payload  = JSON.parse params[:payload] || "{}"
+      @actions  = @payload["actions"] || []
       # command
       parsed_text = (params[:text] || "").split(" ")
       @command    = parsed_text.shift
       @options    = parsed_text
+
+      @response_url = params[:response_url] || @payload["response_url"]
     end
 
     # /tv help

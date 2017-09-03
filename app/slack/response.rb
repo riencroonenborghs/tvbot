@@ -30,5 +30,10 @@ module Slack
       def self.text user, text
       end
     end
+
+    def self.post url, data
+      # ::Unirest.post url, headers: {"Accept" => "application/json"}, data
+      ::Unirest.post url, data
+    end
   end
 end
