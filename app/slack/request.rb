@@ -62,23 +62,30 @@ module Slack
       @actions.any?
     end
     def process_actions
-      text = [].tap do |ret|
-        @actions.each do |action|
-          ret << process_follow(action)   if action["name"] == FOLLOW
-          ret << process_unfollow(action) if action["name"] == UNFOLLOW
-        end
-      end.join("\n")
-      puts "---->>>> text: #{text}"
-      Slack::Response::ToYouOnly.text text
-    end
-    def process_follow action
       begin
-        api =TMDb::API::TvShows.new
-        tv_show = api.get action["value"]
-        return "You have started following #{tv_show[:name]}."
+        attachments = [].tap do |ret|
+          @actions.each do |action|
+            ret << process_follow(action)   if action["name"] == FOLLOW
+            ret << process_unfollow(action) if action["name"] == UNFOLLOW
+          end
+        end.join("\n")
+        
+        Slack::Response::ToYouOnly.attachments do
+          attachments
+        end
       rescue => e
         Slack::Response::ToYouOnly.error e
       end
+    end
+    def process_follow action
+      api     = TMDb::API::TvShows.new
+      tv_show = api.get action["value"]
+      {
+        fallback:     "You have started following #{tv_show[:name]}.",
+        color:        "#36a64f", # greenish
+        title:        "You have started following #{tv_show[:name]}.",
+        text:         tv_show[:name],
+      }
     end
     def process_unfollow action
     end
