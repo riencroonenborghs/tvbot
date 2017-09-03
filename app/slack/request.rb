@@ -7,6 +7,9 @@ module Slack
 
     def initialize params
       @user = Slack::User.new params[:user_id], params[:user_name]
+      # actions for (un)following tv programs
+      @actions    = params[:actions]
+      # command
       parsed_text = params[:text].split(" ")
       @command    = parsed_text.shift
       @options    = parsed_text
@@ -14,15 +17,14 @@ module Slack
 
     # /tv help
     # /tv search
-    # /tv follow ...
-    # /tv unfollow ...
+    # /tv list
     def process
       if help?
         process_help
       elsif search?
         process_search
-      elsif follow?
-      elsif unfollow?
+      elsif actions?
+        process_actions
       else
         process_help
       end
@@ -36,8 +38,7 @@ module Slack
     def process_help
       help = ["`/tv help` helps you along the way"]
       help << "`/tv search tv program` finds out things about *tv program*"
-      help << "`/tv follow tv program` starts following *tv program* and notifies you when a new episode has aired"
-      help << "`/tv unfollow tv program` unfollows *tv program*"
+      help << "`/tv list` list all your followed tv programs"
       Slack::Response::ToYouOnly.text help.join("\n")
     end
 
@@ -56,12 +57,20 @@ module Slack
       end
     end
 
-    def follow?
-      @command == FOLLOW
+    def actions?
+      @actions.any?
     end
-
-    def unfollow?
-      @command == UNFOLLOW
+    def process_actions
+      Slack::Response::ToYouOnly.text 
+        @actions.map do |action|
+          process_follow action   if action[:name] == FOLLOW
+          process_unfollow action if action[:name] == UNFOLLOW
+        end.join("\n")
+    end
+    def process_follow action
+      return "You have started following #{action[:value]}"
+    end
+    def process_unfollow action
     end
 
   end  
