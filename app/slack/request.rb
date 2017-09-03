@@ -20,12 +20,12 @@ module Slack
     # /tv search
     # /tv list
     def process
-      if help?
+      if actions?
+        process_actions
+      elsif help?
         process_help
       elsif search?
-        process_search
-      elsif actions?
-        process_actions
+        process_search      
       else
         process_help
       end
