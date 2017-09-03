@@ -72,7 +72,13 @@ module Slack
       Slack::Response::ToYouOnly.text text
     end
     def process_follow action
-      return "You have started following #{action[:value]}."
+      begin
+        api =TMDb::API::TvShows.new
+        tv_show = api.get action["value"]
+        return "You have started following #{tv_show[:name]}."
+      rescue => e
+        Slack::Response::ToYouOnly.error e
+      end
     end
     def process_unfollow action
     end

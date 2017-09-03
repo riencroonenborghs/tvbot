@@ -9,6 +9,7 @@ require_relative "app/slack/authorizer"
 
 require_relative "app/tmdb/api/request"
 require_relative "app/tmdb/api/search"
+require_relative "app/tmdb/api/tv_shows"
 
 use Slack::Authorizer
 
