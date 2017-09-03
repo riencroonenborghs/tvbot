@@ -8,9 +8,10 @@ module Slack
     def initialize params
       @user = Slack::User.new params[:user_id], params[:user_name]
       # actions for (un)following tv programs
-      @actions    = params[:actions] || []
+      payload   = JSON.parse(req.params["payload"])
+      @actions  = payload["actions"] || []
       # command
-      parsed_text = params[:text].split(" ")
+      parsed_text = (params[:text] || "").split(" ")
       @command    = parsed_text.shift
       @options    = parsed_text
     end
