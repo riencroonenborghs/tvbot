@@ -62,14 +62,14 @@ module Slack
       @actions.any?
     end
     def process_actions
-      Slack::Response::ToYouOnly.text 
-        @actions.map do |action|
-          process_follow action   if action[:name] == FOLLOW
-          process_unfollow action if action[:name] == UNFOLLOW
-        end.join("\n")
+      text = @actions.map do |action|
+        process_follow action   if action["name"] == FOLLOW
+        process_unfollow action if action["name"] == UNFOLLOW
+      end.join("\n")
+      Slack::Response::ToYouOnly.text text
     end
     def process_follow action
-      return "You have started following #{action[:value]}"
+      return "You have started following #{action[:value]}."
     end
     def process_unfollow action
     end
