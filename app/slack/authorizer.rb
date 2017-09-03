@@ -9,6 +9,7 @@ module Slack
     
     def call(env)
       req = Rack::Request.new(env)
+      puts JSON.parse(req.params["payload"] || "{}")
       if get_token(req) == ENV["SLACK_TOKEN"]
         @app.call(env)
       else
@@ -19,7 +20,7 @@ module Slack
   private
 
     def get_token(req)
-      req.params["token"] || JSON.parse(req.params["payload"])["token"]
+      req.params["token"] || JSON.parse(req.params["payload"] || "{}")["token"]
     end
   end
 end

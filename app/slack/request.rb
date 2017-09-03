@@ -59,8 +59,6 @@ module Slack
     end
 
     def actions?
-      puts "actions?"
-      puts @actions
       @actions.any?
     end
     def process_actions
