@@ -66,6 +66,7 @@ module Slack
         process_follow action   if action["name"] == FOLLOW
         process_unfollow action if action["name"] == UNFOLLOW
       end.join("\n")
+      puts "---->>>> text: #{text}"
       Slack::Response::ToYouOnly.text text
     end
     def process_follow action
