@@ -63,9 +63,9 @@ module Slack
     end
     def process_actions
       text = [].tap do |ret|
-        @actions.map do |action|
-          ret << process_follow action   if action["name"] == FOLLOW
-          ret << process_unfollow action if action["name"] == UNFOLLOW
+        @actions.each do |action|
+          ret << process_follow(action)   if action["name"] == FOLLOW
+          ret << process_unfollow(action) if action["name"] == UNFOLLOW
         end
       end.join("\n")
       puts "---->>>> text: #{text}"
