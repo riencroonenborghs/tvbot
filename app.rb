@@ -15,7 +15,9 @@ use Slack::Authorizer
 
 post "/" do
   slack_request = Slack::Request.new params
-  response = slack_request.process
+  response      = slack_request.process
+  puts "response: #{slack_request.response_url}"
+  puts response
   Slack::Response.post slack_request.response_url, response.to_json
 end
 
