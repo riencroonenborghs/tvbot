@@ -3,9 +3,9 @@ module Slack
     attr_accessor :response_url
     
     def initialize params
-      @response_url = nil
-      @actions_request = ActionsRequest.new params
-      @command_request = CommandRequest.new params
+      @actions_request  = ActionsRequest.new params
+      @command_request  = CommandRequest.new params
+      @response_url     = @command_request.response_url || @actions_request.response_url
     end
 
     # /tv help
