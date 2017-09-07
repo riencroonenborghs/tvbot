@@ -7,6 +7,7 @@ module TMDb
       OK_RESPONSE = 200
       
       def get url
+        puts "TMDb::API::Request.get #{url}"
         ::Unirest.get url, headers: HEADERS
       end
 

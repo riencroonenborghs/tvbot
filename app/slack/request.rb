@@ -102,6 +102,8 @@ module Slack
       puts action
       begin
         api     = TMDb::API::TvShows.new
+        puts "-- api"
+        puts api
         tv_show = api.get action["value"]
         puts "--> #{tv_show}"
         {
