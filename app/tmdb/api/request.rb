@@ -7,7 +7,10 @@ module TMDb
       OK_RESPONSE = 200
 
       def self.symbolize_keys(hash)
-        hash.inject({}){|memo,(k,v)| memo[k.to_sym] = v; memo}
+        hash.inject({}) do |memo, (k,v)| 
+          memo[k.to_sym] = v.is_a?(Hash) ? symbolize_keys(v) : v
+          memo
+        end
       end
       
       def get url
