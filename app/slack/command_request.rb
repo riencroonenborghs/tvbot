@@ -87,9 +87,6 @@ module Slack
             color:        "#36a64f", # greenish
             title:        tv_show[:name],
             callback_id:  tv_show[:id],
-            fields:       [
-              {title: "Rating", value: tv_show[:vote_average]}
-            ],
             actions:      [{
               name: "unfollow",
               text: "Unfollow",
