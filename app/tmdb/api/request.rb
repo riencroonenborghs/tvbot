@@ -8,7 +8,14 @@ module TMDb
 
       def self.symbolize_keys(hash)
         hash.inject({}) do |memo, (k,v)| 
-          memo[k.to_sym] = v.is_a?(Hash) ? symbolize_keys(v) : v
+          memo[k.to_sym] = case v.class
+            when Hash
+              symbolize_keys(v)
+            when Array
+              v.map { |x| symbolize_keys(x) }
+            else
+              v
+            end
           memo
         end
       end
