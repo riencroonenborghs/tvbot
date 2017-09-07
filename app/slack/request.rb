@@ -12,8 +12,8 @@ module Slack
     # /tv search
     # /tv list
     def process
-      @actions_request.process
-      @command_request.process
+      return @actions_request.process if @actions_request.valid?
+      return @command_request.process if @command_request.valid?
     end
   end # class Request
 
@@ -29,6 +29,10 @@ module Slack
       return process_help   if help?
       return process_search if search?
       process_help
+    end
+
+    def valid?
+      true
     end
 
   private
@@ -72,6 +76,10 @@ module Slack
       return process_actions if actions?
     end
 
+    def valid?
+      actions?
+    end
+
   private
 
     def actions?
@@ -87,9 +95,6 @@ module Slack
           end
         end.flatten
 
-        puts "attachments"
-        puts attachments
-        
         Slack::Response::ToYouOnly.attachments do
           attachments
         end
