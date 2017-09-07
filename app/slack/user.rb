@@ -3,10 +3,10 @@ module Slack
     attr_accessor :id, :name
     
     def self.from_command params
-      new(id: params["user_id"], name: params["user_name"])
+      new params["user_id"], params["user_name"]
     end
     def self.from_actions payload
-      new(id: payload.fetch("user", {}).fetch("id", nil), name: payload.fetch("user", {}).fetch("name", nil))
+      new payload.fetch("user", {}).fetch("id", nil), payload.fetch("user", {}).fetch("name", nil)
     end
 
     def initialize(id, name)
