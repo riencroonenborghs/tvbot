@@ -6,18 +6,17 @@ module TMDb
       HEADERS     = {"Accept" => "application/json"}
       OK_RESPONSE = 200
 
-      def self.symbolize_keys(hash)
-        hash.inject({}) do |memo, (k,v)| 
-          memo[k.to_sym] = case v.class
-            when Hash
-              symbolize_keys(v)
-            when Array
-              v.map { |x| symbolize_keys(x) }
-            else
-              v
-            end
-          memo
+      def self.symbolize_keys(input)
+        return input.map {|item| symbolize_keys(item) } if input.is_a? Array
+
+        if input.is_a? Hash
+          return input.inject({}) do |memo, (k,v)|
+            memo[k.to_sym] = symbolize_keys(v)
+            memo
+          end
         end
+
+        return input
       end
       
       def get url
