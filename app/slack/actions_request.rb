@@ -4,7 +4,8 @@ module Slack
     def initialize(params)
       @payload      = JSON.parse params[:payload] || "{}"
       @actions      = @payload["actions"] || []
-      @slack_user   = Slack::User.from_actions @payload
+      slack_user    = Slack::User.from_actions @payload
+      @db_user      = User.where(uid: slack_user.id).first || User.create!(uid: slack_user.id, name: slack_user.name)
       @response_url ||= @payload["response_url"]
     end
 
@@ -41,8 +42,12 @@ module Slack
 
     def process_follow action
       begin
+        # get tv show from TMDb
         api     = TMDb::API::TvShows.new
         tv_show = api.getById action["value"]
+        # start following in db
+        @db_user.tv_shows.create!(tmdb_id: tv_show[:id], name: tv_show[:name]) unless @db_user.tv_shows.where(id: tv_show[:id]).exists?
+        # respond
         {
           fallback:     "You have started following #{tv_show[:name]}.",
           color:        "#36a64f", # greenish

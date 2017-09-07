@@ -15,7 +15,7 @@ module TMDb
 
       def process_body body
         body["results"].map do |result|
-          is_following = @db_user.tv_shows.where(tmdb_id: result["id"]).count > 0
+          is_following = @db_user.tv_shows.where(tmdb_id: result["id"]).exists?
           hash = {
             fallback:     result["name"],
             color:        "#36a64f", # greenish
