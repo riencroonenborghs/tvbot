@@ -50,6 +50,7 @@ GEM
     mime-types (1.25.1)
     multi_json (1.12.1)
     mustermann (1.0.1)
+    puma (3.10.0)
     rack (2.0.3)
     rack-protection (2.0.0)
       rack
@@ -80,6 +81,7 @@ PLATFORMS
 
 DEPENDENCIES
   datamapper
+  puma
   sinatra
   sinatra-contrib
   unirest
