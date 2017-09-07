@@ -60,6 +60,22 @@ module Slack
     end
 
     def process_unfollow action
+      begin
+        # get tv show from TMDb
+        api     = TMDb::API::TvShows.new
+        tv_show = api.getById action["value"]
+        # start unfollowing in db
+        @db_user.tv_shows.where(tmdb_id: tv_show[:id], name: tv_show[:name]).map(&:destroy) if @db_user.tv_shows.where(id: tv_show[:id]).exists?
+        # respond
+        {
+          fallback:     "You have unfollowed #{tv_show[:name]}.",
+          color:        "#36a64f", # greenish
+          title:        "You have unfollowed #{tv_show[:name]}.",
+          text:         "You will not be notified anymore of aired episodes."
+        }
+      rescue e
+        Slack::Response::ToYouOnly.error e
+      end
     end
   end
 end

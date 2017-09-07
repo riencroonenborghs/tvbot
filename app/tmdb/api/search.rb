@@ -30,14 +30,14 @@ module TMDb
           if is_following
             hash[:actions] << {
               name: "unfollow",
-              text: "Unfollow #{result["name"]}",
+              text: "Unfollow",
               type: "button",
               value: result["id"]
             }
           else
             hash[:actions] << {
               name: "follow",
-              text: "Follow #{result["name"]}",
+              text: "Follow",
               type: "button",
               value: result["id"]
             }
