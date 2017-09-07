@@ -79,15 +79,16 @@ module Slack
     end
 
     def process_actions
-      puts "process_actions"
       begin
         attachments = [].tap do |ret|
           @actions.each do |action|
-            puts "-- action: #{action['name']} - #{action['value']}"
             ret << process_follow(action)   if action["name"] == "follow"
             ret << process_unfollow(action) if action["name"] == "unfollow"
           end
         end.flatten
+
+        puts "attachments"
+        puts attachments
         
         Slack::Response::ToYouOnly.attachments do
           attachments
@@ -98,14 +99,9 @@ module Slack
     end
 
     def process_follow action
-      puts "process_follow"
-      puts action
       begin
         api     = TMDb::API::TvShows.new
-        puts "-- api"
-        puts api
         tv_show = api.getById action["value"]
-        puts "--> #{tv_show}"
         {
           fallback:     "You have started following #{tv_show[:name]}.",
           color:        "#36a64f", # greenish
