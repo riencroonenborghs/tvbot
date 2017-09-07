@@ -58,6 +58,8 @@ module Slack
         data = @db_user.tv_shows.map do |following|
           # get tv show from TMDb          
           tv_show = api.getById following.tmdb_id
+          puts "-----tv_show-----"
+          puts tv_show
           # start following in db
           hash = {
             fallback:     tv_show[:name],
