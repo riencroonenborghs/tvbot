@@ -3,6 +3,8 @@ module Slack
     def initialize(params)
       split_text    = (params[:text] || "").split(" ")
       # @user         = Slack::User.new params["user"]
+      puts "params----------"
+      puts params
       @command      = split_text.shift
       @options      = split_text
       @response_url ||= params[:response_url]
