@@ -5,7 +5,7 @@ module Slack
       @payload      = JSON.parse params[:payload] || "{}"
       @actions      = @payload["actions"] || []
       slack_user    = Slack::User.from_actions @payload
-      @db_user      = User.where(uid: slack_user.id).first || User.create!(uid: slack_user.id, name: slack_user.name)
+      @db_user      = ::User.where(uid: slack_user.id).first || ::User.create!(uid: slack_user.id, name: slack_user.name)
       @response_url ||= @payload["response_url"]
     end
 
