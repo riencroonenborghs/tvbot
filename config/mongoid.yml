@@ -1,0 +1,29 @@
+development:
+  clients:
+    default:
+      database: tvbot_development
+      hosts:
+        - localhost:27017
+      options:
+        consistency: strong
+
+test:
+  clients:
+    default:
+      database: tvbot_test
+      hosts:
+        - localhost:27017
+      options:
+        consistency: strong
+
+production:
+  clients:
+    default:
+      uri: <%= ENV['MONGOHQ_URL'] %>
+    username: <%= ENV['MONGOHQ_USERNAME'] %>
+    password: <%= ENV['MONGOHQ_PASSWORD'] %>
+    database: tvbot_production
+    options:
+      skip_version_check: true
+      safe: true
+      consistency: strong

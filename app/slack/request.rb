@@ -111,7 +111,7 @@ module Slack
           fallback:     "You have started following #{tv_show[:name]}.",
           color:        "#36a64f", # greenish
           title:        "You have started following #{tv_show[:name]}.",
-          text:         tv_show[:name],
+          text:         "If new episodes air, you will be notified!"
         }
       rescue e
         Slack::Response::ToYouOnly.error e
