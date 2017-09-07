@@ -19,7 +19,7 @@ test:
 production:
   clients:
     default:
-      uri: <%= ENV['MONGOHQ_URL'] %>
+      uri: <%= ENV['MONGODB_URI'] %>
     username: <%= ENV['MONGOHQ_USERNAME'] %>
     password: <%= ENV['MONGOHQ_PASSWORD'] %>
     database: tvbot_production
