@@ -5,9 +5,12 @@ module TMDb
       IMAGE_PATH  = "https://image.tmdb.org/t/p/w185"
       HEADERS     = {"Accept" => "application/json"}
       OK_RESPONSE = 200
+
+      def self.symbolize_keys(hash)
+        hash.inject({}){|memo,(k,v)| memo[k.to_sym] = v; memo}
+      end
       
       def get url
-        puts "TMDb::API::Request.get #{url}"
         ::Unirest.get url, headers: HEADERS
       end
 
@@ -21,8 +24,8 @@ module TMDb
         end
       end
 
-      def process_body
-        raise "implement me"
+      def process_body body
+        self.class.symbolize_keys body
       end
     end
   end

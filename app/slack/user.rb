@@ -10,7 +10,7 @@ module Slack
     end
 
     def initialize(id, name)
-      @id = id
+      @id   = id
       @name = name
     end
   end
