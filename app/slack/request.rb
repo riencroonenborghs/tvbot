@@ -104,7 +104,7 @@ module Slack
         api     = TMDb::API::TvShows.new
         puts "-- api"
         puts api
-        tv_show = api.get action["value"]
+        tv_show = api.getById action["value"]
         puts "--> #{tv_show}"
         {
           fallback:     "You have started following #{tv_show[:name]}.",

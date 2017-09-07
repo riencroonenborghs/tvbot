@@ -1,7 +1,7 @@
 module TMDb
   module API
     class TvShows < Request
-      def get id
+      def getById id
         puts "TMDb::API::TvShows.get #{id}"
         response = get "#{API_URL}/tv/#{id}?api_key=#{ENV['THEMOVIEDB_API_TOKEN']}"
         process response
