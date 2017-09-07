@@ -14,7 +14,8 @@ module TMDb
     private
 
       def process_body body
-        self.class.symbolize_keys body["results"]
+        hash = self.class.symbolize_keys body
+        return hash[:results]
       end
     end
   end
