@@ -45,6 +45,7 @@ module Slack
         return Slack::Response::ToYouOnly.text "Nothing found for `#{@options.join(" ")}`." if results.size == 0
         Slack::Response::ToYouOnly.attachments do
           results.map do |result|
+            puts result
             is_following = @db_user.tv_shows.where(tmdb_id: result[:id]).exists?
             hash = {
               fallback:     result[:name],
@@ -72,7 +73,7 @@ module Slack
     def list?
       @command == "list" 
     end
-    
+
     def process_list
       return Slack::Response::ToYouOnly.text "Your list empty." if @db_user.tv_shows.empty?
       begin
