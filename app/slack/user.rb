@@ -1,10 +1,10 @@
 module Slack
   class User
-    attr_accessor :name, :id
-
-    def initialize id, name
-      @name = name
-      @id = id
+    attr_accessor :id, :name
+    
+    def initialize(hash)
+      @id = hash["id"]
+      @name = hash["name"]
     end
   end
 end
