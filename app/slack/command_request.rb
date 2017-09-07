@@ -53,19 +53,17 @@ module Slack
       @command == "list" 
     end
     def process_list
+      return Slack::Response::ToYouOnly.text "Your list empty." if @db_user.tv_shows.empty?
       begin
         api = TMDb::API::TvShows.new
         data = @db_user.tv_shows.map do |following|
           # get tv show from TMDb          
           tv_show = api.getById following.tmdb_id
-          puts "-----tv_show-----"
-          puts tv_show
           # start following in db
           hash = {
             fallback:     tv_show[:name],
             color:        "#36a64f", # greenish
             title:        tv_show[:name],
-            text:         tv_show[:overview],
             callback_id:  tv_show[:id],
             fields:       [
               {title: "Rating", value: tv_show[:vote_average]}
