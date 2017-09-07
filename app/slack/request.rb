@@ -79,10 +79,11 @@ module Slack
     end
 
     def process_actions
+      puts "process_actions"
       begin
         attachments = [].tap do |ret|
           @actions.each do |action|
-            puts "action: #{action['name']} - #{action['value']}"
+            puts "-- action: #{action['name']} - #{action['value']}"
             ret << process_follow(action)   if action["name"] == "follow"
             ret << process_unfollow(action) if action["name"] == "unfollow"
           end
@@ -98,6 +99,7 @@ module Slack
 
     def process_follow action
       puts "process_follow"
+      puts action
       begin
         api     = TMDb::API::TvShows.new
         tv_show = api.get action["value"]
