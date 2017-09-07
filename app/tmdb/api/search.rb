@@ -1,8 +1,9 @@
 module TMDb
   module API
     class Search < Request
-      def initialize query
-        @query = query
+      def initialize slack_user, query
+        @db_user  = User.where(uid: slack_user.id).first || User.create!(uid: slack_user.id, name: slack_user.name)
+        @query    = query
       end
 
       def search
@@ -14,6 +15,7 @@ module TMDb
 
       def process_body body
         body["results"].map do |result|
+          is_following = @db_user.tv_shows.where(tmdb_id: result["id"]).count > 0
           hash = {
             fallback:     result["name"],
             color:        "#36a64f", # greenish
@@ -23,15 +25,23 @@ module TMDb
             fields:       [
               {title: "Rating", value: result["vote_average"]}
             ],
-            actions:      [
-              {
-                  name: "follow",
-                  text: "Follow #{result["name"]}",
-                  type: "button",
-                  value: result["id"]
-              }
-            ]
+            actions:      []
           }
+          if is_following
+            hash[:actions] << {
+              name: "unfollow",
+              text: "Unfollow #{result["name"]}",
+              type: "button",
+              value: result["id"]
+            }
+          else
+            hash[:actions] << {
+              name: "follow",
+              text: "Follow #{result["name"]}",
+              type: "button",
+              value: result["id"]
+            }
+          end
           hash.update(thumb_url: "#{IMAGE_PATH}/#{result["poster_path"]}") if result["poster_path"]
           hash
         end

@@ -2,9 +2,7 @@ module Slack
   class CommandRequest < Request
     def initialize(params)
       split_text    = (params[:text] || "").split(" ")
-      # @user         = Slack::User.new params["user"]
-      puts "params----------"
-      puts params
+      @slack_user   = Slack::User.from_command params
       @command      = split_text.shift
       @options      = split_text
       @response_url ||= params[:response_url]
@@ -40,7 +38,7 @@ module Slack
     def process_search
       return Slack::Response::ToYouOnly.text "Nothing to search for." unless @options.any?
       begin
-        api     = TMDb::API::Search.new @options.join(" ")
+        api     = TMDb::API::Search.new @slack_user, @options.join(" ")
         results = api.search
         return Slack::Response::ToYouOnly.text "Nothing found for `#{@options.join(" ")}`." if results.size == 0
         Slack::Response::ToYouOnly.attachments { results }

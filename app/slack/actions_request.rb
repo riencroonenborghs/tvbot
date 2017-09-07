@@ -4,7 +4,7 @@ module Slack
     def initialize(params)
       @payload      = JSON.parse params[:payload] || "{}"
       @actions      = @payload["actions"] || []
-      # @user         = Slack::User.new @payload["user"]
+      @slack_user   = Slack::User.from_actions @payload
       @response_url ||= @payload["response_url"]
     end
 
