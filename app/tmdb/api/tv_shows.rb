@@ -10,7 +10,8 @@ module TMDb
     private
 
       def process_body body
-        {id: body["id"], name: body["name"]}
+        # symbolize all keys
+        body.inject({}){|memo,(k,v)| memo[k.to_sym] = v; memo}
       end
     end
   end
