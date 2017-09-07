@@ -65,7 +65,7 @@ module Slack
         api     = TMDb::API::TvShows.new
         tv_show = api.getById action["value"]
         # start unfollowing in db
-        @db_user.tv_shows.where(tmdb_id: tv_show[:id], name: tv_show[:name]).map(&:destroy) if @db_user.tv_shows.where(id: tv_show[:id]).exists?
+        @db_user.tv_shows.where(tmdb_id: tv_show[:id]).map(&:destroy)
         # respond
         {
           fallback:     "You have unfollowed #{tv_show[:name]}.",
