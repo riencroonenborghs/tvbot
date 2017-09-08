@@ -1,6 +1,7 @@
 # tvbot
 
-*tvbot* is a Slack bot that looks up your tv shows, and notifies you when a new episode has aired.
+*tvbot* is a Slack bot that allows you to look up tv shows, (un)follow them and get notified when a new episode has aired.
+
 It's written in Ruby/Sinatra, with a mongodb backend.
 
 # Get it up and running
@@ -13,8 +14,10 @@ It's written in Ruby/Sinatra, with a mongodb backend.
 
 `/tv help`
 Helps you along the way.
+
 `/tv search tv show` 
 Finds out things about *tv show*. In the results you can follow/unfollow tv shows.
+
 `/tv list`
 List the tv shows you follow.
 
