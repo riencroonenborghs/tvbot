@@ -24,7 +24,7 @@ require_relative "app/models/tv_show"
 require_relative "app/airing_notifications"
 
 scheduler = Rufus::Scheduler.new
-scheduler.every "2m" do
+scheduler.every "24h" do
   AiringNotifications.new.check!
 end
 scheduler.join
