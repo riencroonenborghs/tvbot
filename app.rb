@@ -23,15 +23,7 @@ require_relative "app/tmdb/api/airing_today"
 require_relative "app/models/user"
 require_relative "app/models/tv_show"
 
-require_relative "app/guide_checker"
-
 class TvBot < Sinatra::Base
   use Slack::Authorizer
   set :app_file, __FILE__
 end
-
-# scheduler = Rufus::Scheduler.new
-# scheduler.every "2m" do
-#   GuideChecker.new.check!
-# end
-# scheduler.join

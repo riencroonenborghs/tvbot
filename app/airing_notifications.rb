@@ -1,4 +1,4 @@
-class GuideChecker
+class AiringNotifications
   def check!
     begin
       # get all aired tv programs

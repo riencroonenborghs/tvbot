@@ -1,6 +1,5 @@
 $:.unshift File.join(__FILE__, "../config")
 
-require "sinatra/base"
 require "mongoid"
 require "unirest"
 require "bundler/setup"
@@ -22,10 +21,10 @@ require_relative "app/tmdb/api/airing_today"
 require_relative "app/models/user"
 require_relative "app/models/tv_show"
 
-require_relative "app/guide_checker"
+require_relative "app/airing_notifications"
 
 scheduler = Rufus::Scheduler.new
 scheduler.every "2m" do
-  GuideChecker.new.check!
+  AiringNotifications.new.check!
 end
 scheduler.join
