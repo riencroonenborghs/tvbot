@@ -1,24 +1,22 @@
 # tvbot
 
-*tvbot* is a Slack bot that looks up your tv programs, and notifies you when a new episode has aired.
-It's written in Ruby/Sinatra.
+*tvbot* is a Slack bot that looks up your tv shows, and notifies you when a new episode has aired.
+It's written in Ruby/Sinatra, with a mongodb backend.
 
 # Get it up and running
 
 - create a [Slack App](https://api.slack.com/apps) (Slash Commands)
-- get a [API key](https://www.themoviedb.org/account/signup) from [TMDb](https://www.themoviedb.org)
-- deploy *tvbot* somewhere and make sure Slack App's API token (_SLACK_TOKEN_) and TMDb's API token (_THEMOVIEDB_API_TOKEN_) are available in the environment (.env or something)
+- get an [API key](https://www.themoviedb.org/account/signup) from [TMDb](https://www.themoviedb.org)
+- deploy *tvbot* somewhere and make sure the Slack App's API token (_SLACK_TOKEN_), Slack App's OAuth token (_SLACK_OAUTH_TOKEN_) and TMDb's API token (_THEMOVIEDB_API_TOKEN_) are available in the environment (.env or something)
 
 # How to
 
 `/tv help`
 Helps you along the way.
+`/tv search tv show` 
+Finds out things about *tv show*. In the results you can follow/unfollow tv shows.
+`/tv list`
+List the tv shows you follow.
 
-`/tv search tv program` 
-Finds out things about *tv program*.
-
-`/tv follow tv program`
-Starts following *tv program* and notifies you when a new episode has been aired.
-
-`/tv unfollow tv program`
-Unfolloes *tv program*.
+Every 24 hours your list is checked against what's been on tv.
+You will get a private message if something has aired.
