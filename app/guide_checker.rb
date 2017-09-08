@@ -35,7 +35,7 @@ class GuideChecker
         end
         response.done
       end
-    rescue e
+    rescue => e
       puts "ERROR: #{e.message}"
     end
   end
