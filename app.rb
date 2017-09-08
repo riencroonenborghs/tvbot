@@ -30,8 +30,8 @@ class TvBot < Sinatra::Base
   set :app_file, __FILE__
 end
 
-scheduler = Rufus::Scheduler.new
-scheduler.every "2m" do
-  GuideChecker.new.check!
-end
-scheduler.join
+# scheduler = Rufus::Scheduler.new
+# scheduler.every "2m" do
+#   GuideChecker.new.check!
+# end
+# scheduler.join
