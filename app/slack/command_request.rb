@@ -51,6 +51,7 @@ module Slack
               fallback:     result[:name],
               color:        "#36a64f", # greenish
               title:        result[:name],
+              title_link:   "https://www.themoviedb.org/tv/#{result[:id]}",
               text:         result[:overview],
               callback_id:  result[:id],
               fields:       [{title: "Rating", value: result[:vote_average]}],
@@ -86,6 +87,7 @@ module Slack
             fallback:     tv_show[:name],
             color:        "#36a64f", # greenish
             title:        tv_show[:name],
+            title_link:   "https://www.themoviedb.org/tv/#{tv_show[:id]}",
             callback_id:  tv_show[:id],
             actions:      [{
               name: "unfollow",
